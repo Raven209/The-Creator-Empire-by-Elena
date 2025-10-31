@@ -1,30 +1,9 @@
-    </footer>
-
-    <!-- Preview Modal -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-content">
-            <button class="preview-close" onclick="closePreview()">×</button>
-            <div class="preview-video">
-                <div class="preview-placeholder">
-                    <div class="preview-placeholder-icon">🎬</div>
-                    <p style="font-style: italic;">[Course Preview Video Player]</p>
-                    <p style="font-size: 0.9rem;">Preview video or animated demo would go here</p>
-                </div>
-            </div>
-            <div class="preview-info">
-                <h3>Welcome to Content Creation Foundations</h3>
-                <p>Get a sneak peek of what you'll learn in this comprehensive course</p>
-                <button class="btn btn-primary" onclick="closePreview()">Start Learning Now - $297</button>
-            </div>
-        </div>
-    </div>
-
-    
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Content Creation Foundations - The Creator Empire</title>
+    <title>The Creator Empire by Elena</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -38,11 +17,45 @@
             background-color: #fdf4eb;
             color: #54221b;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         nav {
@@ -54,6 +67,11 @@
             z-index: 1000;
             padding: 1.5rem 5%;
             box-shadow: 0 2px 10px rgba(84, 34, 27, 0.05);
+            transition: padding 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
         }
 
         .nav-container {
@@ -70,7 +88,11 @@
             font-weight: 600;
             color: #54221b;
             line-height: 1.3;
-            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo .by {
@@ -83,18 +105,29 @@
             display: flex;
             gap: 2rem;
             list-style: none;
-            align-items: center;
         }
 
         .nav-links a {
             color: #54221b;
             text-decoration: none;
             font-weight: 400;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            opacity: 0.7;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #54221b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .mobile-menu-toggle {
@@ -125,325 +158,108 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        .course-hero {
-            padding: 8rem 5% 3rem;
-            background: linear-gradient(135deg, rgba(107, 46, 238, 0.05), rgba(139, 59, 59, 0.05));
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .hero-main h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .hero-main .course-subtitle {
-            font-size: 1.2rem;
-            color: rgba(84, 34, 27, 0.7);
-            margin-bottom: 1.5rem;
-        }
-
-        .course-meta-info {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .meta-item span {
-            font-weight: 500;
-        }
-
-        .key-benefits {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .benefit-badge {
-            background: white;
-            padding: 0.7rem 1.3rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            box-shadow: 0 2px 10px rgba(84, 34, 27, 0.08);
-        }
-
-        .course-stats {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(84, 34, 27, 0.08);
-        }
-
-        .stat-icon {
-            font-size: 1.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(84, 34, 27, 0.6);
-        }
-
-        .stat-value {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .progress-visual {
-            background: linear-gradient(135deg, rgba(139, 59, 59, 0.1), rgba(107, 46, 46, 0.1));
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 2rem;
-        }
-
-        .progress-visual h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .progress-stats {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .progress-item {
-            text-align: center;
-        }
-
-        .progress-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #8B3B;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .progress-label {
-            font-size: 0.9rem;
-            color: rgba(84, 34, 27, 0.7);
-            margin-top: 0.3rem;
-        }
-
-        .progress-divider {
-            width: 2px;
-            height: 50px;
-            background: rgba(84, 34, 27, 0.2);
-        }
-
-        .btn-preview {
-            background: transparent;
-            color: #8B3B;
-            border: 2px solid #8B3B;
-            margin-top: 1.5rem;
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            font-size: 1rem;
+            padding: 8rem 5% 4rem;
+            text-align: center;
         }
 
-        .btn-preview:hover {
-            background: #8B3B;
-            color: white;
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease;
         }
 
-        .preview-icon {
-            font-size: 1.1rem;
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            color: rgba(84, 34, 27, 0.8);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s backwards;
         }
 
-        /* Preview Modal */
-        .preview-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        .preview-modal.active {
-            display: flex;
-        }
-
-        .preview-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            padding: 2rem;
-            position: relative;
-            animation: modalSlideIn 0.3s ease;
-        }
-
-        @keyframes modalSlideIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: scale(0.9);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: translateY(0);
             }
         }
 
-        .preview-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #54221b;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .preview-close:hover {
-            background: rgba(84, 34, 27, 0.1);
-        }
-
-        .preview-video {
+        .video-placeholder {
             width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, #f9ede0, #f0dcc8);
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: rgba(84, 34, 27, 0.5);
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .preview-placeholder {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .preview-placeholder-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.05);
-            }
-        }
-
-        .preview-info {
-            text-align: center;
-        }
-
-        .preview-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .preview-info p {
-            color: rgba(84, 34, 27, 0.7);
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-card {
-            background: white;
+            max-width: 800px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(187, 188, 205, 0.2), rgba(139, 59, 59, 0.2));
             border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(84, 34, 27, 0.1);
-            position: sticky;
-            top: 100px;
-        }
-
-        .pricing-card .course-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #f9ede0, #f0dcc8);
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
+            margin: 2rem auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(84, 34, 27, 0.3);
             font-style: italic;
+            color: rgba(84, 34, 27, 0.5);
+            animation: fadeInUp 1s ease 0.4s backwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .price {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #8B3B;
-            margin-bottom: 0.5rem;
+        .video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(84, 34, 27, 0.1);
         }
 
-        .price-note {
-            font-size: 0.9rem;
-            color: rgba(84, 34, 27, 0.6);
-            margin-bottom: 1.5rem;
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.6s backwards;
         }
 
         .btn {
-            width: 100%;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
-            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary {
             background: #8B3B3B;
             color: white;
-            margin-bottom: 1rem;
         }
 
         .btn-primary:hover {
@@ -462,326 +278,379 @@
             background: #54221b;
             color: white;
             transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(84, 34, 27, 0.2);
         }
 
-        .includes-list {
-            list-style: none;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(84, 34, 27, 0.1);
-        }
-
-        .includes-list li {
-            padding: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .includes-list li::before {
-            content: "✓";
-            color: #8B3B;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .content-section {
+        section {
+            padding: 5rem 5%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 5%;
         }
 
         .section-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-title::before {
-            content: "";
-            width: 5px;
-            height: 40px;
-            background: #8B3B;
-            border-radius: 5px;
-        }
-
-        .learning-outcomes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .outcome-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            display: flex;
-            gap: 1rem;
-            box-shadow: 0 5px 20px rgba(84, 34, 27, 0.05);
-            transition: transform 0.3s;
-        }
-
-        .outcome-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .outcome-icon {
-            width: 40px;
-            height: 40px;
-            background: #8B3B;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .curriculum {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .module {
-            border: 2px solid rgba(84, 34, 27, 0.1);
-            border-radius: 15px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
             margin-bottom: 1rem;
-            overflow: hidden;
-            transition: all 0.3s;
         }
 
-        .module-header {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fdf4eb;
-            transition: background 0.3s;
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(84, 34, 27, 0.7);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .module-header:hover {
-            background: #f9ede0;
-        }
-
-        .module-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .module-meta {
-            font-size: 0.9rem;
-            color: rgba(84, 34, 27, 0.6);
-            margin-top: 0.3rem;
-        }
-
-        .module-content {
-            padding: 0 1.5rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .module.active .module-content {
-            max-height: 1000px;
-            padding: 1.5rem;
-        }
-
-        .lesson {
-            padding: 0.8rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(84, 34, 27, 0.05);
-        }
-
-        .lesson:last-child {
-            border-bottom: none;
-        }
-
-        .lesson-name {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .lesson-duration {
-            color: rgba(84, 34, 27, 0.6);
-            font-size: 0.9rem;
-        }
-
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .skill-tag {
-            background: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            border: 2px solid rgba(139, 59, 59, 0.2);
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .skill-tag:hover {
-            background: #8B3B;
-            color: white;
-            border-color: #8B3B;
-            transform: translateY(-3px);
-        }
-
-        .description-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            margin-top: 2rem;
-            line-height: 1.8;
-        }
-
-        .description-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .target-audience {
+        .about-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
         }
 
-        .audience-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #8B3B;
-            box-shadow: 0 5px 20px rgba(84, 34, 27, 0.05);
-        }
-
-        .audience-card h4 {
-            margin-bottom: 0.8rem;
-            color: #8B3B;
-        }
-
-        .instructor-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            margin-top: 2rem;
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .instructor-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+        .about-image {
+            width: 100%;
+            height: 450px;
             background: linear-gradient(135deg, rgba(187, 188, 205, 0.3), rgba(139, 59, 59, 0.3));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: rgba(84, 34, 27, 0.4);
             font-style: italic;
+            transition: transform 0.3s ease;
         }
 
-        .instructor-details h3 {
+        .about-image:hover {
+            transform: scale(1.03);
+        }
+
+        .about-text h3 {
             font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .instructor-title {
-            color: rgba(84, 34, 27, 0.6);
             margin-bottom: 1.5rem;
         }
 
-        .instructor-stats {
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .courses-grid {
             display: flex;
-            gap: 2rem;
-            margin: 1.5rem 0;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 2rem;
             flex-wrap: wrap;
         }
 
-        .stat {
-            display: flex;
-            flex-direction: column;
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
         }
 
-        .stat-number {
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 59, 59, 0.1), rgba(107, 46, 46, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(84, 34, 27, 0.2);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #f9ede0, #f0dcc8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: rgba(84, 34, 27, 0.3);
+            transition: transform 0.4s ease;
+            overflow: hidden;
+        }
+
+        .course-card:hover .course-image {
+            transform: scale(1.1);
+        }
+
+        .course-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .course-content h3 {
             font-size: 1.5rem;
-            font-weight: 600;
+            margin-bottom: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .course-card:hover .course-content h3 {
             color: #8B3B;
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: rgba(84, 34, 27, 0.6);
+        .course-content p {
+            color: rgba(84, 34, 27, 0.7);
+            margin-bottom: 1.5rem;
         }
 
-        .faq-section {
-            margin-top: 2rem;
-        }
-
-        .faq-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .faq-item:hover {
-            box-shadow: 0 5px 20px rgba(84, 34, 27, 0.08);
-        }
-
-        .faq-question {
-            font-weight: 600;
-            font-size: 1.1rem;
+        .course-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(84, 34, 27, 0.1);
         }
 
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s;
-            color: rgba(84, 34, 27, 0.7);
-            line-height: 1.7;
+        .course-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #6B2EEE;
         }
 
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-            margin-top: 1rem;
+        .brands-section {
+            background: white;
+            padding: 4rem 5%;
+            text-align: center;
         }
 
-        .testimonial-slider {
+        .brands-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brands-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(84, 34, 27, 0.6);
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .brands-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
             margin-top: 2rem;
+        }
+
+        .brand-logo {
+            width: 120px;
+            height: 80px;
+            background: #fdf4eb;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            font-size: 0.9rem;
+            color: rgba(84, 34, 27, 0.5);
+        }
+
+        .brand-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(84, 34, 27, 0.15);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: #f9ede0;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(84, 34, 27, 0.15);
+        }
+
+        .resource-icon {
+            width: 60px;
+            height: 60px;
+            background: #8B3B3B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover .resource-icon {
+            transform: rotate(360deg);
+        }
+
+        .resource-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .testimonial {
+        .blog-card {
             background: white;
-            padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(84, 34, 27, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(84, 34, 27, 0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #f9ede0, #f0dcc8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(84, 34, 27, 0.3);
+            font-style: italic;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .blog-card:hover .blog-image {
+            transform: scale(1.05);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            font-size: 0.85rem;
+            color: rgba(84, 34, 27, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .community-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: white;
+            border-radius: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .community-content:hover {
+            transform: scale(1.02);
+        }
+
+        .community-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .community-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .community-feature .icon {
+            width: 50px;
+            height: 50px;
+            background: #8B3B3B;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .community-feature:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(84, 34, 27, 0.15);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            color: rgba(84, 34, 27, 0.1);
         }
 
         .testimonial-text {
-            font-style: italic;
             margin-bottom: 1.5rem;
+            font-style: italic;
             line-height: 1.7;
         }
 
@@ -794,13 +663,129 @@
         .author-avatar {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
             background: #f9ede0;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
         }
 
-        .rating {
-            color: #FFB800;
+        .testimonial-card:hover .author-avatar {
+            transform: scale(1.1);
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-role {
+            font-size: 0.85rem;
+            color: rgba(84, 34, 27, 0.6);
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid rgba(84, 34, 27, 0.1);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B3B;
+            box-shadow: 0 0 0 3px rgba(139, 59, 59, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: #f9ede0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #54221b;
+        }
+
+        .social-link:hover {
+            background: #8B3B;
+            color: white;
+            transform: translateY(-5px) rotate(5deg);
+        }
+
+        .newsletter {
+            background: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
             margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+            padding: 0.9rem 1.5rem;
+            border: 2px solid rgba(84, 34, 27, 0.2);
+            border-radius: 50px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: #8B3B;
+            box-shadow: 0 0 0 3px rgba(139, 59, 59, 0.1);
         }
 
         footer {
@@ -808,43 +793,12 @@
             color: white;
             padding: 2.5rem 5%;
             text-align: center;
-            margin-top: 4rem;
         }
 
         .footer-logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
             margin-bottom: 1rem;
-        }
-
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card {
-                position: relative;
-                top: 0;
-                max-width: 500px;
-                margin: 2rem auto 0;
-            }
-
-            .instructor-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .instructor-image {
-                margin: 0 auto;
-            }
-
-            .instructor-stats {
-                justify-content: center;
-            }
-
-            .content-section {
-                padding: 3rem 5%;
-            }
         }
 
         @media (max-width: 768px) {
@@ -865,7 +819,6 @@
                 box-shadow: -5px 0 15px rgba(84, 34, 27, 0.1);
                 transition: right 0.3s ease;
                 gap: 1.5rem;
-                align-items: flex-start;
             }
 
             .nav-links.active {
@@ -881,177 +834,79 @@
                 padding: 1rem 5%;
             }
 
-            .course-hero {
-                padding: 6rem 5% 2rem;
+            .hero {
+                padding: 6rem 5% 3rem;
             }
 
-            .hero-main h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.2rem;
             }
 
-            .hero-main .course-subtitle {
-                font-size: 1rem;
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            .course-meta-info {
-                gap: 1rem;
-            }
-
-            .meta-item {
-                font-size: 0.9rem;
-            }
-
-            .course-stats {
-                gap: 1rem;
-            }
-
-            .stat-badge {
-                padding: 0.8rem 1.2rem;
-                flex: 1;
-                min-width: 140px;
-            }
-
-            .stat-icon {
-                font-size: 1.3rem;
-            }
-
-            .progress-visual {
-                padding: 1.5rem;
-            }
-
-            .progress-visual h3 {
-                font-size: 1.1rem;
-            }
-
-            .progress-number {
-                font-size: 2rem;
-            }
-
-            .progress-label {
-                font-size: 0.85rem;
-            }
-
-            .progress-divider {
-                height: 40px;
-            }
-
-            .btn-preview {
-                font-size: 0.95rem;
-            }
-
-            .preview-video {
+            .about-image {
                 height: 300px;
             }
 
-            .preview-placeholder-icon {
-                font-size: 3rem;
-            }
-
-            .preview-info h3 {
-                font-size: 1.3rem;
-            }
-
-            .key-benefits {
-                gap: 0.7rem;
-            }
-
-            .benefit-badge {
-                font-size: 0.85rem;
-                padding: 0.6rem 1rem;
-            }
-
-            .pricing-card {
-                padding: 1.5rem;
-            }
-
-            .price {
-                font-size: 2rem;
-            }
-
-            .btn {
-                padding: 0.9rem 1.5rem;
-                font-size: 1rem;
-            }
-
-            .learning-outcomes {
+            .courses-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 2rem;
             }
 
-            .outcome-item {
-                padding: 1.2rem;
+            .course-card {
+                max-width: 100%;
             }
 
-            .section-title {
-                font-size: 1.6rem;
-            }
-
-            .section-title::before {
-                height: 30px;
-            }
-
-            .curriculum {
-                padding: 1.5rem;
-            }
-
-            .module-header {
-                padding: 1.2rem;
-            }
-
-            .module-title {
-                font-size: 1rem;
-            }
-
-            .module-meta {
-                font-size: 0.85rem;
-            }
-
-            .lesson {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .skills-grid {
-                gap: 0.7rem;
-            }
-
-            .skill-tag {
-                font-size: 0.9rem;
-                padding: 0.6rem 1.2rem;
-            }
-
-            .description-content {
-                padding: 1.5rem;
-            }
-
-            .target-audience {
+            .blog-grid,
+            .testimonials-grid,
+            .resources-grid {
                 grid-template-columns: 1fr;
             }
 
-            .audience-card {
-                padding: 1.5rem;
+            .video-placeholder {
+                height: 250px;
             }
 
-            .instructor-section {
-                padding: 2rem;
+            .brands-grid {
                 gap: 1.5rem;
             }
 
-            .testimonial-slider {
+            .brand-logo {
+                width: 100px;
+                height: 70px;
+                font-size: 0.8rem;
+            }
+
+            .community-features {
                 grid-template-columns: 1fr;
             }
 
-            .testimonial {
-                padding: 1.5rem;
+            .newsletter-form {
+                flex-direction: column;
             }
 
-            .faq-item {
-                padding: 1.2rem;
+            .newsletter-form input {
+                max-width: 100%;
             }
 
-            .faq-question {
+            .btn {
+                padding: 0.9rem 2rem;
                 font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .contact-form {
+                padding: 2rem;
             }
         }
 
@@ -1060,452 +915,414 @@
                 font-size: 0.95rem;
             }
 
-            .course-hero {
-                padding: 5rem 5% 2rem;
+            .hero h1 {
+                font-size: 1.8rem;
             }
 
-            .hero-main h1 {
-                font-size: 1.7rem;
-            }
-
-            .course-meta-info {
-                flex-direction: column;
-                gap: 0.7rem;
-            }
-
-            .key-benefits {
-                flex-direction: column;
-            }
-
-            .benefit-badge {
-                width: 100%;
-                text-align: center;
-            }
-
-            .pricing-card .course-image {
-                height: 150px;
-            }
-
-            .includes-list li {
-                font-size: 0.9rem;
-            }
-
-            .outcome-icon {
-                width: 35px;
-                height: 35px;
+            .hero p {
                 font-size: 1rem;
             }
 
-            .module-header {
-                padding: 1rem;
+            .cta-buttons {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+                width: 100%;
             }
 
-            .skills-grid {
-                justify-content: center;
+            .btn {
+                width: 100%;
             }
 
-            .skill-tag {
-                font-size: 0.85rem;
-                padding: 0.5rem 1rem;
-            }
-
-            .description-content p {
-                font-size: 0.95rem;
-            }
-
-            .instructor-section {
-                grid-template-columns: 1fr;
-                padding: 1.5rem;
-            }
-
-            .instructor-image {
-                width: 120px;
-                height: 120px;
-            }
-
-            .instructor-details h3 {
+            .about-text h3 {
                 font-size: 1.5rem;
             }
 
-            .instructor-stats {
-                flex-direction: column;
+            .course-content h3 {
+                font-size: 1.3rem;
+            }
+
+            .brands-grid {
                 gap: 1rem;
             }
 
-            .stat {
-                width: 100%;
-                text-align: center;
+            .brand-logo {
+                width: 80px;
+                height: 60px;
+                font-size: 0.75rem;
+            }
+
+            .resource-card,
+            .blog-card,
+            .testimonial-card {
+                padding: 1.5rem;
+            }
+
+            .community-content {
+                padding: 2rem;
+            }
+
+            .footer-logo {
+                font-size: 1.1rem;
             }
         }
-    
     </style>
 </head>
 <body>
-    <nav>
+    <nav id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
+            <div class="logo">
                 THE CREATOR<br>EMPIRE
                 <div class="by">by Elena</div>
-            </a>
+            </div>
             <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html#home" onclick="closeMobileMenu()">Home</a></li>
-                <li><a href="index.html#about" onclick="closeMobileMenu()">About</a></li>
-                <li><a href="index.html#courses" onclick="closeMobileMenu()">Courses</a></li>
-                <li><a href="index.html#contact" onclick="closeMobileMenu()">Contact</a></li>
+                <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">About</a></li>
+                <li><a href="#courses" onclick="closeMobileMenu()">Courses</a></li>
+                <li><a href="#resources" onclick="closeMobileMenu()">Resources</a></li>
+                <li><a href="#blog" onclick="closeMobileMenu()">Blog</a></li>
+                <li><a href="#community" onclick="closeMobileMenu()">Community</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <section class="course-hero">
-        <div class="hero-content">
-            <div class="hero-main">
-                <h1>Content Creation Foundations</h1>
-                <p class="course-subtitle">Master the fundamentals and build a sustainable creative business from the ground up</p>
-                
-                <div class="course-meta-info">
-                    <div class="meta-item">
-                        <span>⭐ 4.9</span> (2,847 reviews)
-                    </div>
-                    <div class="meta-item">
-                        <span>👥 8,432</span> students enrolled
-                    </div>
-                    <div class="meta-item">
-                        <span>🎯 Beginner Friendly</span>
-                    </div>
-                    <div class="meta-item">
-                        <span>⏱️ 6 weeks</span>
-                    </div>
-                </div>
-
-                <div class="course-stats">
-                    <div class="stat-badge">
-                        <span class="stat-icon">📅</span>
-                        <div>
-                            <div class="stat-label">Last updated</div>
-                            <div class="stat-value">October 2025</div>
-                        </div>
-                    </div>
-                    <div class="stat-badge">
-                        <span class="stat-icon">🌍</span>
-                        <div>
-                            <div class="stat-label">Language</div>
-                            <div class="stat-value">English</div>
-                        </div>
-                    </div>
-                    <div class="stat-badge">
-                        <span class="stat-icon">📝</span>
-                        <div>
-                            <div class="stat-label">Captions</div>
-                            <div class="stat-value">Available</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="progress-visual">
-                    <h3>Course Content</h3>
-                    <div class="progress-stats">
-                        <div class="progress-item">
-                            <div class="progress-number">6</div>
-                            <div class="progress-label">Modules</div>
-                        </div>
-                        <div class="progress-divider"></div>
-                        <div class="progress-item">
-                            <div class="progress-number">48</div>
-                            <div class="progress-label">Lessons</div>
-                        </div>
-                        <div class="progress-divider"></div>
-                        <div class="progress-item">
-                            <div class="progress-number">15+</div>
-                            <div class="progress-label">Hours</div>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn btn-preview" onclick="openPreview()">
-                    <span class="preview-icon">▶️</span> Watch Free Preview
-                </button>
-
-                <div class="key-benefits">
-                    <span class="benefit-badge">✨ Lifetime Access</span>
-                    <span class="benefit-badge">📱 Mobile Friendly</span>
-                    <span class="benefit-badge">🎓 Certificate of Completion</span>
-                    <span class="benefit-badge">💬 Community Support</span>
-                </div>
-            </div>
-
-            <div class="pricing-card">
-                <div class="course-image">[Course Preview]</div>
-                <div class="price">$297</div>
-                <p class="price-note">One-time payment • Lifetime access</p>
-                <button class="btn btn-primary">Enroll Now</button>
-                <button class="btn btn-secondary">Gift This Course</button>
-                
-                <ul class="includes-list">
-                    <li>40+ video lessons</li>
-                    <li>Downloadable resources</li>
-                    <li>Private community access</li>
-                    <li>Weekly live Q&A sessions</li>
-                    <li>Personalized feedback</li>
-                    <li>30-day money-back guarantee</li>
-                </ul>
+    <section id="home" class="hero">
+        <div>
+            <h1>Build Your Creative Empire</h1>
+            <p>Transform your passion into a thriving business with proven strategies, authentic storytelling, and a community that supports your growth.</p>
+            <div class="video-placeholder">[Intro Video Placeholder]</div>
+            <div class="cta-buttons">
+                <a href="#courses" class="btn btn-primary">Explore Courses</a>
+                <a href="#resources" class="btn btn-secondary">Free Resources</a>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <h2 class="section-title">What You'll Learn</h2>
-        <div class="learning-outcomes">
-            <div class="outcome-item">
-                <div class="outcome-icon">📝</div>
-                <div>
-                    <h4>Content Strategy</h4>
-                    <p>Develop a winning content strategy that resonates with your target audience and drives engagement</p>
-                </div>
-            </div>
-            <div class="outcome-item">
-                <div class="outcome-icon">🎨</div>
-                <div>
-                    <h4>Creative Production</h4>
-                    <p>Master the tools and techniques for creating high-quality content across multiple platforms</p>
-                </div>
-            </div>
-            <div class="outcome-item">
-                <div class="outcome-icon">📈</div>
-                <div>
-                    <h4>Growth Tactics</h4>
-                    <p>Learn proven strategies to grow your audience organically and build a loyal community</p>
-                </div>
-            </div>
-            <div class="outcome-item">
-                <div class="outcome-icon">💰</div>
-                <div>
-                    <h4>Monetization</h4>
-                    <p>Discover multiple ways to monetize your content and create sustainable income streams</p>
-                </div>
-            </div>
-            <div class="outcome-item">
-                <div class="outcome-icon">🔧</div>
-                <div>
-                    <h4>Tools & Systems</h4>
-                    <p>Set up efficient workflows and systems to save time and increase productivity</p>
-                </div>
-            </div>
-            <div class="outcome-item">
-                <div class="outcome-icon">✍️</div>
-                <div>
-                    <h4>Brand Voice</h4>
-                    <p>Develop an authentic brand voice that sets you apart and connects with your audience</p>
-                </div>
+    <section id="about">
+        <h2 class="section-title fade-in">About Elena</h2>
+        <p class="section-subtitle fade-in">A journey of passion, purpose, and empowerment</p>
+        <div class="about-content">
+            <div class="about-image fade-in-left">[Photo Here]</div>
+            <div class="about-text fade-in-right">
+                <h3>From Dreamer to Creator</h3>
+                <p>My journey began with a simple belief: that every creative soul deserves the tools and guidance to build something extraordinary.</p>
+                <p>Through years of experience in content creation, brand building, and community development, I've discovered what truly works. Now, I'm here to share those insights with you.</p>
+                <p>My mission is to empower creators like you to turn your vision into reality—with authenticity, strategy, and heart.</p>
+                <a href="#contact" class="btn btn-primary">Let's Connect</a>
             </div>
         </div>
     </section>
 
-    <section class="content-section" style="background: white;">
-        <h2 class="section-title">Course Curriculum</h2>
-        <div class="curriculum">
-            <div class="module active">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 1: Foundation & Mindset</div>
-                        <div class="module-meta">7 lessons • 2hr 15min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Welcome & Course Overview
-                        </div>
-                        <span class="lesson-duration">12:30</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> The Creator Mindset
-                        </div>
-                        <span class="lesson-duration">18:45</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Finding Your Niche
-                        </div>
-                        <span class="lesson-duration">22:10</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Understanding Your Audience
-                        </div>
-                        <span class="lesson-duration">25:30</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Setting Clear Goals
-                        </div>
-                        <span class="lesson-duration">15:20</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>📄</span> Workbook: Your Creative Blueprint
-                        </div>
-                        <span class="lesson-duration">PDF</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>✏️</span> Assignment: Define Your Vision
-                        </div>
-                        <span class="lesson-duration">--</span>
+    <section id="courses">
+        <h2 class="section-title fade-in">Premium Courses</h2>
+        <p class="section-subtitle fade-in">Comprehensive programs designed to elevate your creative business</p>
+        <div class="courses-grid">
+            <div class="course-card fade-in">
+                <div class="course-image">[Course Image]</div>
+                <div class="course-content">
+                    <h3>Content Creation Foundations</h3>
+                    <p>Master the fundamentals of content creation and build a sustainable creative business from the ground up.</p>
+                    <div class="course-meta">
+                        <span class="course-price">$297</span>
+                        <a href="course-detail.html" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 2: Content Strategy</div>
-                        <div class="module-meta">8 lessons • 2hr 45min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Platform Selection Guide
-                        </div>
-                        <span class="lesson-duration">20:15</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Content Pillars Framework
-                        </div>
-                        <span class="lesson-duration">24:30</span>
-                    </div>
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Creating a Content Calendar
-                        </div>
-                        <span class="lesson-duration">18:45</span>
+            <div class="course-card fade-in">
+                <div class="course-image">[Course Image]</div>
+                <div class="course-content">
+                    <h3>Audience Growth Academy</h3>
+                    <p>Advanced strategies for scaling your audience and creating multiple revenue streams as a creator.</p>
+                    <div class="course-meta">
+                        <span class="course-price">$397</span>
+                        <a href="Coursesdetail.html" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 3: Content Creation Mastery</div>
-                        <div class="module-meta">10 lessons • 3hr 20min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Storytelling Fundamentals
-                        </div>
-                        <span class="lesson-duration">28:10</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 4: Building Your Audience</div>
-                        <div class="module-meta">9 lessons • 2hr 50min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Organic Growth Strategies
-                        </div>
-                        <span class="lesson-duration">25:40</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 5: Monetization Strategies</div>
-                        <div class="module-meta">8 lessons • 2hr 30min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Multiple Revenue Streams
-                        </div>
-                        <span class="lesson-duration">22:15</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="module">
-                <div class="module-header" onclick="toggleModule(this)">
-                    <div>
-                        <div class="module-title">Module 6: Systems & Scaling</div>
-                        <div class="module-meta">6 lessons • 1hr 55min</div>
-                    </div>
-                    <span>▼</span>
-                </div>
-                <div class="module-content">
-                    <div class="lesson">
-                        <div class="lesson-name">
-                            <span>▶️</span> Workflow Automation
-                        </div>
-                        <span class="lesson-duration">19:30</span>
+            <div class="course-card fade-in">
+                <div class="course-image">[Course Image]</div>
+                <div class="course-content">
+                    <h3>Brand Storytelling Mastery</h3>
+                    <p>Transform your brand identity and connect deeply with your audience through authentic storytelling.</p>
+                    <div class="course-meta">
+                        <span class="course-price">$347</span>
+                        <a href="course-detail.html" class="btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="content-section">
-        <h2 class="section-title">Skills You'll Gain</h2>
-        <div class="skills-grid">
-            <span class="skill-tag">Content Strategy</span>
-            <span class="skill-tag">Video Production</span>
-            <span class="skill-tag">Copywriting</span>
-            <span class="skill-tag">Social Media Marketing</span>
-            <span class="skill-tag">Brand Development</span>
-            <span class="skill-tag">Audience Building</span>
-            <span class="skill-tag">SEO Basics</span>
-            <span class="skill-tag">Analytics & Data</span>
-            <span class="skill-tag">Email Marketing</span>
-            <span class="skill-tag">Community Management</span>
-            <span class="skill-tag">Monetization</span>
-            <span class="skill-tag">Time Management</span>
+    <section id="resources">
+        <h2 class="section-title fade-in">Free Resources</h2>
+        <p class="section-subtitle fade-in">Start your journey with these complimentary guides</p>
+        <div class="resources-grid">
+            <div class="resource-card fade-in">
+                <div class="resource-icon">📚</div>
+                <h3>Starter Guide</h3>
+                <p>Essential steps to launch your creative business with confidence and clarity.</p>
+                <a href="#" class="btn btn-secondary">Download</a>
+            </div>
+            <div class="resource-card fade-in">
+                <div class="resource-icon">✨</div>
+                <h3>Content Planner</h3>
+                <p>Plan your content strategy with this beautifully designed template.</p>
+                <a href="#" class="btn btn-secondary">Download</a>
+            </div>
+            <div class="resource-card fade-in">
+                <div class="resource-icon">💡</div>
+                <h3>Brand Worksheet</h3>
+                <p>Discover your unique voice and define your brand identity.</p>
+                <a href="#" class="btn btn-secondary">Download</a>
+            </div>
+            <div class="resource-card fade-in">
+                <div class="resource-icon">🎯</div>
+                <h3>Goal Setting Kit</h3>
+                <p>Set meaningful goals and create an actionable roadmap for success.</p>
+                <a href="#" class="btn btn-secondary">Download</a>
+            </div>
         </div>
     </section>
 
-    <section class="content-section" style="background: white;">
-        <h2 class="section-title">Course Description</h2>
-        <div class="description-content">
-            <p><strong>Transform your passion into a thriving creative business.</strong> This comprehensive course is designed for aspiring content creators who want to build a sustainable and profitable online presence.</p>
+    <section id="blog">
+        <h2 class="section-title fade-in">Latest Insights</h2>
+        <p class="section-subtitle fade-in">Stories, strategies, and behind-the-scenes wisdom</p>
+        <div class="blog-grid">
+            <div class="blog-card fade-in">
+                <div class="blog-image">[Blog Image]</div>
+                <div class="blog-content">
+                    <p class="blog-date">October 25, 2025</p>
+                    <h3>Finding Your Creative Voice</h3>
+                    <p>Discover how to develop an authentic voice that resonates with your audience and sets you apart.</p>
+                    <a href="#">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card fade-in">
+                <div class="blog-image">[Blog Image]</div>
+                <div class="blog-content">
+                    <p class="blog-date">October 20, 2025</p>
+                    <h3>Building Sustainable Income</h3>
+                    <p>Learn proven strategies for creating multiple revenue streams as a content creator.</p>
+                    <a href="#">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card fade-in">
+                <div class="blog-image">[Blog Image]</div>
+                <div class="blog-content">
+                    <p class="blog-date">October 15, 2025</p>
+                    <h3>The Power of Community</h3>
+                    <p>Why building a genuine community is the secret to long-term success.</p>
+                    <a href="#">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="community">
+        <h2 class="section-title fade-in">Join Our Community</h2>
+        <p class="section-subtitle fade-in">Connect with like-minded creators on the same journey</p>
+        <div class="community-content fade-in">
+            <h3>The Creator Circle</h3>
+            <p>An exclusive space for ambitious creators who are ready to grow together, share insights, and celebrate wins.</p>
+            <div class="community-features">
+                <div class="community-feature">
+                    <div class="icon">🤝</div>
+                    <h4>Support</h4>
+                    <p>Get feedback and encouragement from peers</p>
+                </div>
+                <div class="community-feature">
+                    <div class="icon">📈</div>
+                    <h4>Growth</h4>
+                    <p>Learn from shared experiences and strategies</p>
+                </div>
+                <div class="community-feature">
+                    <div class="icon">🎉</div>
+                    <h4>Success</h4>
+                    <p>Celebrate milestones together</p>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary">Join the Circle</a>
+        </div>
+    </section>
+
+    <div class="brands-section fade-in">
+        <div class="brands-container">
+            <h3 class="brands-title">Trusted By Leading Brands</h3>
+            <div class="brands-grid">
+                <div class="brand-logo">[Brand Logo 1]</div>
+                <div class="brand-logo">[Brand Logo 2]</div>
+                <div class="brand-logo">[Brand Logo 3]</div>
+                <div class="brand-logo">[Brand Logo 4]</div>
+                <div class="brand-logo">[Brand Logo 5]</div>
+            </div>
+        </div>
+    </div>
+
+    <section id="testimonials">
+        <h2 class="section-title fade-in">Success Stories</h2>
+        <p class="section-subtitle fade-in">Real results from real creators</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">This course completely transformed how I approach content creation. Within 3 months, I doubled my audience and launched my first product!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p class="author-role">Content Creator</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">Elena's guidance helped me find clarity in my brand and connect with my audience on a deeper level. The community support is incredible.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Michael Chen</h4>
+                        <p class="author-role">Brand Strategist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">The strategies I learned here gave me the confidence to quit my 9-5 and pursue content creation full-time. Best investment I've ever made.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"></div>
+                    <div class="author-info">
+                        <h4>Emma Rodriguez</h4>
+                        <p class="author-role">Full-Time Creator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title fade-in">Let's Connect</h2>
+        <p class="section-subtitle fade-in">Have questions? Want to collaborate? Reach out!</p>
+        <div class="contact-content">
+            <form class="contact-form fade-in">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            <div class="social-links fade-in">
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">🐦</a>
+                <a href="#" class="social-link">💼</a>
+                <a href="#" class="social-link">📧</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="fade-in">
+            <h2>Stay Inspired</h2>
+            <p>Join our newsletter for weekly insights, exclusive tips, and early access to new courses.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <div class="footer-logo">THE CREATOR EMPIRE<br><span style="font-size: 0.9rem; font-style: italic; font-weight: 400;">by Elena</span></div>
+            <p style="margin: 1rem 0;">Empowering creators to build their dream businesses</p>
+            <p style="font-size: 0.85rem; opacity: 0.7;">&copy; 2025 The Creator Empire. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            navLinks.classList.remove('active');
+            toggle.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const navLinks = document.querySelector('.nav-links');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const nav = document.querySelector('nav');
             
-            <p>Whether you're starting from scratch or looking to level up your existing content game, this course provides you with the complete roadmap to success. You'll learn everything from finding your unique voice to creating content that resonates, growing an engaged audience, and monetizing your creativity.</p>
-            
-            <p>What makes this course different? It's not just theory—you'll get practical, actionable strategies that you can implement immediately. Each module includes real-world examples, templates, and exercises that guide you step-by-step through the process of building your creative empire.</p>
-            
-            <p><strong>By the end of this course, you'll have:</strong></p>
-            <p>• A clear content strategy aligned with your goals<br>
-            • The skills to create high-quality content consistently<br>
-            • A growing audience that genuinely connects with your work<br>
-            • Multiple revenue streams to support your creative journey<br>
-            • The confidence and systems to scale your business</p>
-            
-            <p>This course includes lifetime access to all materials, future updates, and exclusive access to our private community of fellow creators. You'll also get weekly live Q&A sessions where you can ask questions and get personalized feedback.</p>
-        </div>
-    </section>
+            if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
 
-    <section class="content-section">
-        <h
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Form submissions
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for subscribing! Welcome to The Creator Empire community.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
